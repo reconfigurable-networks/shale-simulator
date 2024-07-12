@@ -330,9 +330,6 @@ void Node::receive_packet_destined_to_this_node(int cur_tick, Packet *received_p
          fct_csv << receive_flows[flow_id].start_tick << std::endl;
       }
    }
-//   else if (USE_RD) {
-//std::cout << receive_flows[flow_id].num_frames << " - " << receive_flows[flow_id].remain_frames << " % " << RD_CELLS_PER_PULL << " == " receive_flows[flow_id].num_frames - receive_flows[flow_id]
-//   }
    else if (USE_RD && ((receive_flows[flow_id].num_frames - receive_flows[flow_id].remain_frames) % RD_CELLS_PER_PULL == 0)) {
       RDControl pull_to_send;
       pull_to_send.type = PULL;
@@ -342,7 +339,6 @@ void Node::receive_packet_destined_to_this_node(int cur_tick, Packet *received_p
       pull_to_send.sequence_num = -1; //unused for PULL messages in this design
       pull_to_send.flow_id = flow_id;
       local_rdc_queue.push_back(pull_to_send);
-//std::cout << cur_tick << " @ node " << id << " - placing " << pull_to_send << " into local_rdc_queue\n";
    }
    delete received_packet;
 }
@@ -485,7 +481,6 @@ void Node::send_rdc (int cur_tick) {
       //Send the next pull in the send queue
       rdc_to_send = rdc_send_queue[cur_phase][cur_link].front();
       rdc_send_queue[cur_phase][cur_link].pop_front();
-//std::cout << cur_tick << " @ node " << id << " - sending " << rdc_to_send << " to neighbor " << adjacent_node[cur_phase][cur_link]->id << std::endl;
    }
    else if (!local_rdc_queue.empty() && rd_pacing_delay < 10) {
       //If the send queue is empty, try to send a pending local pull
@@ -498,7 +493,6 @@ void Node::send_rdc (int cur_tick) {
       } else if (rdc_to_send.type == NACK) {
          rd_pacing_delay += 1 / RD_TARGET_BW_FACTOR;
       }
-//std::cout << cur_tick << " @ node " << id << " - sending " << rdc_to_send << " to neighbor " << adjacent_node[cur_phase][cur_link]->id << std::endl;
    }
 
    //Send pull to adjacent node.
@@ -548,10 +542,8 @@ void Node::receive_rdc_destined_to_this_node(int cur_tick, RDControl received_rd
       });
       if (flow != currently_sending_flows.end()) {
          flow->budget += RD_CELLS_PER_PULL;
-         //std::cout << cur_tick << " @ " << id << " ~ set flow ID " << flow_id << "'s budget to " << flow->budget<< std::endl;
       }
    } else if (received_rdc.type == DROP) {
-//      std::cout << "DROP received!" << std::endl;
       RDControl nack_to_send;
       nack_to_send.type=NACK;
       nack_to_send.src = id;
@@ -561,7 +553,6 @@ void Node::receive_rdc_destined_to_this_node(int cur_tick, RDControl received_rd
       nack_to_send.flow_id = received_rdc.flow_id;
       local_rdc_queue.push_back(nack_to_send);
    } else if (received_rdc.type == NACK) {
-//      std::cout << "NACK received!" << std::endl;
       Packet *packet_to_resend = new Packet();
       packet_to_resend->src = id;
       packet_to_resend->dest = received_rdc.src;

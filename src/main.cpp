@@ -380,7 +380,6 @@ int main(int argc, const char *argv[]) {
    int send_tick;
    for(send_tick = 0; (completed_flows < num_flows) && (completed_flows < max_flows) && (send_tick < max_ticks + PROP_DELAY_TS); send_tick++){
       int receive_tick = send_tick - PROP_DELAY_TS;
-//      if (receive_tick > 0 && receive_tick % 1000000 == 0) {
       if(receive_tick >= total_frames_recvd_M.size() * 1000000 * TSFRAC) {
          total_frames_recvd_M.push_back(total_frames_recvd);
          if(logging) {
@@ -393,11 +392,6 @@ int main(int argc, const char *argv[]) {
                   node->record_cur_buckets_in_use(active_buckets_file);
                }
             }
-//            std::ofstream queue_lengths_file;
-//            queue_lengths_file.open(output_dir / ("queue-lengths-"+std::to_string(receive_tick)+".csv"));
-//            for (auto node : nodes) {
-//               node->record_cur_enqueued_frames(queue_lengths_file);
-//            }
             std::ofstream buffer_occupancy_file;
             buffer_occupancy_file.open(output_dir / ("buffer-occupancy-"+std::to_string(receive_tick)+".csv"));
             for (auto node : nodes) {
