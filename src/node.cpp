@@ -14,8 +14,8 @@
 int happens_in_next_epoch (int cur_phase, int cur_link, int next_phase, int next_link);
 std::mutex mtx;
 
-//Node::Node (NodeID id) : random_generator((std::random_device())()),
-Node::Node (NodeID id) : random_generator(id.id),
+//Node::Node (NodeID id) : random_generator(id.id),
+Node::Node (NodeID id) : random_generator((std::random_device())()),
                          spray_distribution(0,LINKS_PER_PHASE-1)
 {
    this->id = id;
