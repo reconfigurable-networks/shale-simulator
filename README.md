@@ -9,6 +9,7 @@ Build instructions: Run `make` in the root directory of the repository.
 
 ## Reproducing figures in the Shale paper
 
+To reproduce the figures in the Shale paper, first download the [release with test cases](https://github.com/reconfigurable-networks/shale-simulator/releases/tag/v1.0).
 This release includes all of the files needed to replicate figures 9-13 in the Shale paper.
 Note that replicating these figures requires significant computational resources.
 We originally performed our experiments on a cluster managed by the Slurm workload manager.
@@ -75,7 +76,8 @@ For `failed-throughput-10000`, the graphing script will open a window with the r
 
 ## Smaller-scale simulator test
 
-We provide a shell script which can be used to run a smaller-scale version of the Figure 12 experiment, `failed-throughput-10000`.
+In our [release with test cases](https://github.com/reconfigurable-networks/shale-simulator/releases/tag/v1.0),
+we provide a shell script which can be used to run a smaller-scale version of the Figure 12 experiment, `failed-throughput-10000`.
 The simulations run by this shell script are identical to those used to generate Figure 12, except that they are run for only 1% of the amount of time
 Running this script takes under an hour on a laptop with an Intel i7-13700H.
 This script can be started as follows:
