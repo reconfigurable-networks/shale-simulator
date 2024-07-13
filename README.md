@@ -68,7 +68,7 @@ cd results
 ./graph-datamining-10000.py
 ```
 
-For `failed-throughput-10000`, the graphing script will open a window with the resulting graph. For all other test cases, the graphing script generates a PDF file with many graphs. The graphs shown in the paper were selected from these PDFs.
+For `failed-throughput-10000`, the graphing script will open a window with the resulting graph. For all other test cases, the graphing script generates a PDF file with many graphs, some of which were selected for inclusion in the paper.
 
 
 
